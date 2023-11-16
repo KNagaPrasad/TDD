@@ -26,17 +26,16 @@ jobs:
           name: Build Docker Image
           command: |
             DOCKER_TAG=$(echo "${CIRCLE_SHA1}" | cut -c1-12)
-            docker build -t $nkondaboina/myapp:$DOCKER_TAG .
+            docker build -t nkondaboina/myapp:$DOCKER_TAG .
 
       - run:
           name: Authenticate with Docker Hub
           command: |
-            echo "$Mywiz@rd360@123" | docker login --username $nkondaboina --password-stdin
+            echo "$Mywiz@rd360@123" | docker login --username nkondaboina --password-stdin
       - run:
           name: Push Docker Image to Docker Hub
           command: |
-            docker push $nkondaboina/myapp:$DOCKER_TAG
-
+            docker push nkondaboina/myapp:$DOCKER_TAG
 
 workflows:
   version: 2
