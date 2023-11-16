@@ -28,8 +28,7 @@ jobs:
           version: 19.03.13
       - run:
           name: Build Docker Image
-          command: |
-            DOCKER_TAG=$(echo "${CIRCLE_SHA1}" | cut -c1-12)
+          command: 
             docker build -t nkondaboina/sparse_recommender:latest .
       - run:
           name: Authenticate with Docker Hub
@@ -38,17 +37,12 @@ jobs:
       - run:
           name: Push Docker Image to Docker Hub
           command: |
-            DOCKER_TAG=$(echo "${CIRCLE_SHA1}" | cut -c1-12)
             docker push nkondaboina/sparse_recommender:latest
 
 workflows:
   version: 2
   build_and_deploy:
     jobs:
-      - build_and_test:
-          filters:
-            branches:
-              ignore: /main/
       - build_and_push:
           filters:
             branches:
