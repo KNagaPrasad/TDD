@@ -4,15 +4,20 @@ FROM python:3.8
 # Set the working directory to /app
 WORKDIR /app
 
+# Print the contents of the current directory (for debugging)
+RUN ls -al
+
 # Copy only the necessary files for installing dependencies
 COPY requirements.txt .
 
-# Upgrade pip and install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application code
+# Copy the rest of the application code from the current directory
 COPY . .
 
-# Run pytest when the container launches
-CMD ["python", "-m", "pytest"]
+# Print the contents of the current directory again (for debugging)
+RUN ls -al
+
+# Run tests using pytest
+CMD ["python", "-m", "pytest", "NagaPrasadKondaboina_001237666-1/test_sparse_recommender.py"]

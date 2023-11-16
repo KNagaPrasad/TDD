@@ -17,17 +17,20 @@ jobs:
 
   build_and_push:
     docker:
-      - image: cimg/python:3.8
+      - image: python:3.8
     steps:
       - checkout
+      - run:
+          name: Install dependencies
+          command: |
+            pip install -r requirements.txt
       - setup_remote_docker:
           version: 19.03.13
       - run:
           name: Build Docker Image
           command: |
             DOCKER_TAG=$(echo "${CIRCLE_SHA1}" | cut -c1-12)
-            docker build -t nkondaboina/app:latest .
-
+            docker build -t nkondaboina/sparse_recommender:$DOCKER_TAG .
       - run:
           name: Authenticate with Docker Hub
           command: |
@@ -35,12 +38,17 @@ jobs:
       - run:
           name: Push Docker Image to Docker Hub
           command: |
-            docker push nkondaboina/app:latest
+            DOCKER_TAG=$(echo "${CIRCLE_SHA1}" | cut -c1-12)
+            docker push nkondaboina/sparse_recommender:$DOCKER_TAG
 
 workflows:
   version: 2
   build_and_deploy:
     jobs:
+      - build_and_test:
+          filters:
+            branches:
+              ignore: /main/
       - build_and_push:
           filters:
             branches:
