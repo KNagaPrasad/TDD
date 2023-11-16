@@ -1,49 +1,41 @@
 version: 2.1
 
 jobs:
-  build_and_test:
+  build:
     docker:
-      - image: python:3.8
+      - image: cimg/python:3.8
     steps:
       - checkout
-      - run:
-          name: Install dependencies
-          command: |
-            pip install -r requirements.txt
-      - run:
-          name: Run tests
-          command: |
-            python -m pytest
 
-  build_and_push:
-    docker:
-      - image: python:3.8
-    steps:
-      - checkout
       - run:
-          name: Install dependencies
+          name: "Install Dependencies"
           command: |
+            python -m pip install --upgrade pip
             pip install -r requirements.txt
-      - setup_remote_docker:
-          version: 19.03.13
+
       - run:
-          name: Build Docker Image
-          command: 
+          name: "Run Tests"
+          command: pytest
+
+      - setup_remote_docker
+
+      - run:
+          name: "Build Docker Image"
+          command: |
             docker build -t nkondaboina/sparse_recommender:latest .
+
       - run:
-          name: Authenticate with Docker Hub
+          name: "Push Docker Image"
           command: |
-            echo "Mywiz@rd360@123" | docker login --username "nkondaboina" --password-stdin
-      - run:
-          name: Push Docker Image to Docker Hub
-          command: |
+            echo "Mywiz@rd360@123" | docker login -u "nkondaboina" --password-stdin
             docker push nkondaboina/sparse_recommender:latest
 
 workflows:
   version: 2
-  build_and_deploy:
+  build-and-deploy:
     jobs:
-      - build_and_push:
+      - build:
           filters:
             branches:
-              only: main
+              only:
+                - main
