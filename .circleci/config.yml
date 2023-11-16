@@ -30,7 +30,7 @@ jobs:
           name: Build Docker Image
           command: |
             DOCKER_TAG=$(echo "${CIRCLE_SHA1}" | cut -c1-12)
-            docker build -t nkondaboina/sparse_recommender:$DOCKER_TAG .
+            docker build -t nkondaboina/sparse_recommender:latest .
       - run:
           name: Authenticate with Docker Hub
           command: |
@@ -39,7 +39,7 @@ jobs:
           name: Push Docker Image to Docker Hub
           command: |
             DOCKER_TAG=$(echo "${CIRCLE_SHA1}" | cut -c1-12)
-            docker push nkondaboina/sparse_recommender:$DOCKER_TAG
+            docker push nkondaboina/sparse_recommender:latest
 
 workflows:
   version: 2
