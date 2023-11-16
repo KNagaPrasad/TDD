@@ -31,7 +31,7 @@ jobs:
       - run:
           name: Authenticate with Docker Hub
           command: |
-            echo "$Mywiz@rd360@123" | docker login --username nkondaboina --password-stdin
+            echo "Mywiz@rd360@123" | docker login --username "nkondaboina" --password-stdin
       - run:
           name: Push Docker Image to Docker Hub
           command: |
