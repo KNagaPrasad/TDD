@@ -27,7 +27,7 @@ jobs:
       - run:
           name: "Push Docker Image"
           command: |
-            echo "$DOCKER_PASS" | docker login -u $DOCKER_USERNAME --password-stdin
+            echo "$DOCKERHUB_PASS" | docker login -u $DOCKERHUB_USERNAME --password-stdin
             docker push nkondaboina/sparse_recommender:latest
 
 workflows:
