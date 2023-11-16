@@ -7,7 +7,7 @@ WORKDIR /app
 # Print the contents of the current directory (for debugging)
 RUN ls -al
 
-# Copy only the necessary files for installing dependencies
+# Copy only the necessary files for installing dependenc
 COPY requirements.txt .
 
 # Install any needed packages specified in requirements.txt
