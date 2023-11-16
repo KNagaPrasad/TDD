@@ -16,7 +16,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the application code from the current directory
 COPY . .
 
-# Print the contents of the current directory again (for debugging)
+# Print the contents of the current directory again 
 RUN ls -al
 
 # Run tests using pytest
