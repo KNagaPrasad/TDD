@@ -23,7 +23,7 @@ jobs:
           name: "Build Docker Image"
           command: |
             docker build -t nkondaboina/sparse_recommender:latest .
-
+      #testing
       - run:
           name: "Push Docker Image"
           command: |
