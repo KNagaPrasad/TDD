@@ -46,3 +46,5 @@ class SparseMatrix:
                     dense_matrix[row][col] = 0
 
         return dense_matrix
+
+#hiii
